@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>basics13 · mapa del paquete</title>
+<style>
+  :root {
+    --ink: #0f172a;
+    --muted: #475569;
+    --line: #e2e8f0;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 48px 56px 64px;
+    width: 2400px;
+    background:
+      radial-gradient(circle at 1px 1px, #dbe3ee 1px, transparent 0) 0 0 / 26px 26px,
+      linear-gradient(180deg, #f4f7fb 0%, #eef2f8 100%);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+
+  /* ---------- header ---------- */
+  header { margin-bottom: 34px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 15px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+    color: #475569; background: #fff; border: 1px solid var(--line);
+    padding: 7px 14px; border-radius: 999px;
+  }
+  h1 {
+    margin: 16px 0 10px;
+    font-size: 62px; line-height: 1.02; letter-spacing: -.03em; font-weight: 800;
+  }
+  h1 .pkg { color: #4f46e5; }
+  .subtitle { font-size: 21px; color: var(--muted); max-width: 1750px; line-height: 1.5; }
+  .subtitle b { color: var(--ink); }
+
+  /* ---------- flow strip ---------- */
+  .flow {
+    background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+    padding: 26px 30px; margin-bottom: 26px;
+    box-shadow: 0 1px 2px rgba(15,23,42,.05);
+  }
+  .flow h2, .grid h2 { margin: 0 0 18px; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #64748b; }
+  .steps { display: flex; align-items: stretch; gap: 14px; }
+  .step { flex: 1; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: #fbfcfe; }
+  .step .n { font-size: 12px; font-weight: 800; color: #94a3b8; letter-spacing: .1em; }
+  .step .t { font-size: 17px; font-weight: 700; margin: 4px 0 6px; }
+  .step .d { font-size: 14px; color: var(--muted); line-height: 1.45; }
+  .step .c { display: block; margin-top: 8px; font-size: 13px; color: #4f46e5; }
+  .arrow { align-self: center; font-size: 26px; color: #cbd5e1; font-weight: 700; }
+
+  /* ---------- grid ---------- */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; align-items: start; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+  .card > .head { padding: 15px 20px; border-bottom: 1px solid var(--line); }
+  .card > .head .path { font-size: 15px; font-weight: 800; letter-spacing: .01em; }
+  .card > .head .why { font-size: 13.5px; color: var(--muted); margin-top: 4px; line-height: 1.45; }
+  .card > .body { padding: 8px 20px 16px; }
+  .item { padding: 12px 0; border-bottom: 1px dashed #eef2f7; }
+  .item:last-child { border-bottom: 0; }
+  .item .name { font-size: 14.5px; font-weight: 700; }
+  .item .name .tag {
+    font-size: 10.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 6px; margin-left: 8px; vertical-align: 2px;
+  }
+  .item .desc { font-size: 13.5px; color: var(--muted); line-height: 1.5; margin-top: 4px; }
+  .item .desc code { font-size: 12.5px; background: #f1f5f9; border-radius: 5px; padding: 1px 5px; color: #334155; }
+
+  /* ---------- wide card (view components) ---------- */
+  .wide { grid-column: 1 / -1; }
+  .wide .cols { display: grid; grid-template-columns: 400px 1fr; gap: 30px; padding: 22px 20px 18px; }
+  .wire { border: 1px dashed #cbd5e1; border-radius: 12px; background: #fbfcfe; padding: 14px; }
+  .wire .cap { font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #94a3b8; margin-bottom: 10px; }
+  .wire .part { border: 1px solid #e2e8f0; background: #fff; border-radius: 9px; padding: 9px 11px; margin-bottom: 9px; font-size: 12px; color: #64748b; line-height: 1.5; }
+  .wire .part:last-child { margin-bottom: 0; }
+  .wire .part b { color: #0f172a; font-size: 12.5px; }
+  .wire .row { display: flex; gap: 8px; align-items: stretch; }
+  .wire .row > * { flex: 1; }
+  .wire .grow { flex: 2; }
+  .badge {
+    display: inline-flex; width: 19px; height: 19px; border-radius: 999px; flex: 0 0 19px;
+    background: #c026d3; color: #fff; font-size: 11.5px; font-weight: 800;
+    align-items: center; justify-content: center; margin-right: 7px; vertical-align: 1px;
+  }
+  .mini-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 26px; }
+  .mini-cols .item { padding: 11px 0; }
+
+  footer { margin-top: 34px; font-size: 14px; color: #64748b; line-height: 1.6; }
+  footer b { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Paquete composer · amaia/basics13</span>
+  <h1><span class="pkg">basics13</span> — qué hay dentro y para qué sirve</h1>
+  <p class="subtitle">
+    Es la base común que heredan <b>todos los recursos</b> (clientes → proyectos → épicas).
+    Cada recurso solo aporta lo que le es propio; la página de lista, la búsqueda, la papelera,
+    el archivado, las pistas de validación, la auditoría y las herramientas salen de aquí.
+  </p>
+</header>
+
+<div class="flow">
+  <h2>El viaje de una petición</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="n">01</div>
+      <div class="t">FormRequest</div>
+      <div class="d">Valida la entrada (término de búsqueda, cuerpo del formulario) y autoriza con la policy del recurso.</div>
+      <span class="c mono">src/Http/Requests/*</span>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="n">02</div>
+      <div class="t">Controller</div>
+      <div class="d">Orquesta: pide la query, pasa los datos al transformer y decide la respuesta (vista, fragmento o 409).</div>
+      <span class="c mono">src/Http/Controllers/*</span>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="n">03</div>
+      <div class="t">Query</div>
+      <div class="d">Habla con la base de datos: búsqueda, paginación, recuentos por estado y registro con el nombre en papelera.</div>
+      <span class="c mono">src/Queries/ListQueryBase</span>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="n">04</div>
+      <div class="t">Transformer</div>
+      <div class="d">Convierte modelos + paginador en el array que la vista consume: cabecera, pestañas y acciones de fila.</div>
+      <span class="c mono">src/Transformers/ListTransformer</span>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="n">05</div>
+      <div class="t">Vista Blade</div>
+      <div class="d">Pinta la lista con los componentes compartidos: cabecera, pestañas, buscador, tabla, acciones y modales.</div>
+      <span class="c mono">resources/views/components/*</span>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- ============ CONTROLLERS ============ -->
+  <div class="card">
+    <div class="head" style="background:#eef2ff;color:#4338ca">
+      <div class="path mono">src/Http/Controllers</div>
+      <div class="why">Clases base que orquestan cada recurso. El recurso concreto solo implementa los metodos abstractos.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">Controller<span class="tag" style="background:#e0e7ff;color:#3730a3">abstracta</span></div>
+        <div class="desc">
+          Base de todos los controladores. <code>listView()</code> devuelve la vista completa o solo el fragmento
+          <code>#list-results</code> cuando la peticion trae la cabecera <code>X-List-Fragment</code> (refresco al buscar).
+          <code>deletedNameConflict()</code> manda al usuario de vuelta a la lista con el modal de conflicto abierto,
+          o un 409 JSON al llamante XHR (creacion inline de un selector).
+        </div>
+      </div>
+      <div class="item">
+        <div class="name">TrashController<span class="tag" style="background:#e0e7ff;color:#3730a3">abstracta</span></div>
+        <div class="desc">
+          Los dos verbos de la papelera. <code>restoreTrashed()</code>: precomprueba el nombre, captura de todas formas el
+          error de indice unico que lanza la base de datos y lo convierte en el mensaje de conflicto, y relee la fila para
+          confirmar que la restauracion ocurrio. <code>destroyTrashed()</code>: borrado definitivo en transaccion con
+          <code>lockForUpdate()</code>. El recurso implementa <code>restoreTrashedRecord()</code>, <code>nameIsTaken()</code>,
+          <code>recordClass()</code> y <code>trashRoute()</code>.
+        </div>
+      </div>
+      <div class="item">
+        <div class="name">ArchivedController<span class="tag" style="background:#e0e7ff;color:#3730a3">abstracta</span></div>
+        <div class="desc">
+          <code>archiveRecord()</code> / <code>activateRecord()</code>: autorizan la ability y cambian el flag
+          <code>active</code>. Solo hay que nombrar las dos rutas de destino (<code>activeRoute()</code>,
+          <code>archivedRoute()</code>).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ REQUESTS ============ -->
+  <div class="card">
+    <div class="head" style="background:#f5f3ff;color:#6d28d9">
+      <div class="path mono">src/Http/Requests</div>
+      <div class="why">Validacion y autorizacion compartidas. Cada <span class="mono">XListRequest</span> de la app solo anyade <span class="mono">authorize()</span>.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">SearchableListRequest<span class="tag" style="background:#ede9fe;color:#5b21b6">abstracta</span></div>
+        <div class="desc">
+          Reglas del <code>search</code> (nullable, string, max desde config) y normalizacion con
+          <code>search()</code> (trim). Laravel construye la request desde el type-hint del controlador.
+        </div>
+      </div>
+      <div class="item">
+        <div class="name">SearchableSelectOptionsRequest<span class="tag" style="background:#ede9fe;color:#5b21b6">abstracta</span></div>
+        <div class="desc">Igual para el parametro <code>q</code> de los endpoints remotos de opciones de select.</div>
+      </div>
+      <div class="item">
+        <div class="name">TrashRecordRequest<span class="tag" style="background:#ede9fe;color:#5b21b6">abstracta</span></div>
+        <div class="desc">Resuelve una sola vez el registro en papelera al que apunta la ruta: <code>record()</code>. La subclase dice que modelo busca <code>findTrashed()</code>.</div>
+      </div>
+      <div class="item">
+        <div class="name">RestoreRequest<span class="tag" style="background:#ede9fe;color:#5b21b6">abstracta</span></div>
+        <div class="desc">Autoriza la ability <code>restore</code> y acepta el flag <code>resolve_name_conflict</code> del modal de conflicto de nombre.</div>
+      </div>
+      <div class="item">
+        <div class="name">TrashDestroyRequest<span class="tag" style="background:#ede9fe;color:#5b21b6">abstracta</span></div>
+        <div class="desc">Autoriza <code>forceDelete</code>. La ruta no lleva cuerpo, asi que no hay reglas que validar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ QUERIES ============ -->
+  <div class="card">
+    <div class="head" style="background:#e0f2fe;color:#0369a1">
+      <div class="path mono">src/Queries</div>
+      <div class="why">Todo el SQL compartido de las listas. Cada <span class="mono">XListQuery</span> de la app extiende esta clase.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">ListQueryBase<span class="tag" style="background:#dbeafe;color:#1e40af">abstracta</span></div>
+        <div class="desc">
+          <code>PER_PAGE = 25</code> para listas y selects remotos.
+          <code>paginate()</code> aplica la busqueda y pagina conservando el termino en los enlaces.
+          <code>whereMatches()</code> arma el OR de LIKE sobre las columnas indicadas con caracter de escape
+          explicito, para que <code>%</code>, <code>_</code> y <code>\</code> se comporten igual en MySQL,
+          MariaDB, PostgreSQL y SQLite. <code>searchPattern()</code> escapa esos comodines.
+          <code>firstTrashedByName()</code> encuentra el registro en papelera que retiene un nombre (base del modal
+          de conflicto). <code>countStates()</code> devuelve los recuentos de activos / archivados / papelera
+          para las pestanas, reutilizando totales ya calculados.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TRANSFORMERS ============ -->
+  <div class="card">
+    <div class="head" style="background:#ccfbf1;color:#0f766e">
+      <div class="path mono">src/Transformers</div>
+      <div class="why">Convierte modelos y paginador en los arrays que consumen las vistas. El recurso solo describe sus columnas.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">ListTransformer<span class="tag" style="background:#d1fae5;color:#065f46">abstracta</span></div>
+        <div class="desc">
+          <code>envelope()</code> construye todo lo que la lista muestra encima de las filas: etiqueta del recurso,
+          migas de pan, la columna de fecha segun el estado (creacion / actualizacion / borrado), mensaje de vacio o
+          de sin-resultados, buscador, las tres pestanas de estado con su recuento y si se muestra el boton de crear.
+          Las acciones de fila (<code>editAction</code>, <code>deleteAction</code>, <code>archiveAction</code>,
+          <code>activateAction</code>, <code>restoreAction</code>, <code>forceDeleteAction</code>,
+          <code>blockedAction</code>) salen como arrays que pinta <code>row-actions</code>.
+          Cada recurso declara <code>resourceLabel()</code>, <code>resourceKey()</code>, <code>routes()</code>,
+          <code>editPayload()</code> y los mensajes.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUPPORT · DATABASE ============ -->
+  <div class="card">
+    <div class="head" style="background:#fef3c7;color:#b45309">
+      <div class="path mono">src/Support/Database</div>
+      <div class="why">Migraciones y errores de base de datos: las columnas e indices que todo recurso repite.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">Helpers <span class="tag" style="background:#fde68a;color:#92400e">+ funciones globales</span></div>
+        <div class="desc">
+          <code>addCommonColumns()</code>: notes, active, timestamps, softDeletes y su indice.
+          <code>addAuditColumns()</code>: created_by / updated_by / deleted_by con FK a users.
+          <code>addUniqueActiveNameIndex()</code>: nombre unico entre las filas no borradas (indice parcial en
+          SQLite y PostgreSQL; columna generada + indice unico en MySQL y MariaDB).
+          <code>isSqliteOrPgsql()</code>. El fichero <code>helpers_global.php</code> expone las mismas
+          funciones sin namespace para las migraciones.
+        </div>
+      </div>
+      <div class="item">
+        <div class="name">UniqueConstraintViolation</div>
+        <div class="desc">
+          Reconoce un error de clave duplicada (SQLSTATE 23505, o 23000 con codigo 19 / 1062) y
+          <code>rethrowAsValidationError()</code> lo convierte en un error de validacion sobre <code>name</code>:
+          una escritura concurrente falla igual que un "ya existe" normal.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUPPORT · VALIDATION ============ -->
+  <div class="card">
+    <div class="head" style="background:#ffe4e6;color:#be123c">
+      <div class="path mono">src/Support/Validation</div>
+      <div class="why">Los limites y las pistas que ven los formularios, siempre leyendose de la misma fuente.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">MaxLength</div>
+        <div class="desc">
+          Acceso tipado a <code>config/basics13.php</code> (<code>string</code> 191, <code>longtext</code> 10000).
+          Lo comparten las reglas de validacion, el <code>maxlength</code> del input y los tests, y falla alto si falta la clave.
+        </div>
+      </div>
+      <div class="item">
+        <div class="name">FieldHints</div>
+        <div class="desc">
+          Convierte las reglas del FormRequest en las frases que muestra el icono de informacion junto a la etiqueta
+          ("Use between X and Y characters", "Must be unique", "Must be later than ..."). No hay texto duplicado:
+          <code>isRequired()</code> decide ademas el asterisco rojo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CONCERNS + FACTORIES ============ -->
+  <div class="card">
+    <div class="head" style="background:#d1fae5;color:#047857">
+      <div class="path mono">src/Concerns · src/Database/Factories</div>
+      <div class="why">Lo que se anyade a los modelos: la traza de auditoria y los estados de fabrica.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">TracksAuditColumns</div>
+        <div class="desc">
+          trait de modelo. Sella created_by / updated_by al crear, updated_by al cambiar, deleted_by al pasar a
+          papelera y lo borra al restaurar. Solo escribe cuando hay usuario autenticado, y esas columnas nunca son
+          mass assignable: la peticion no puede reclamar autoria.
+        </div>
+      </div>
+      <div class="item">
+        <div class="name">HasStates</div>
+        <div class="desc">
+          trait de factory: estados <code>archived()</code> y <code>trashed()</code>, <code>getRecord()</code>
+          (registro aleatorio o nuevo) y <code>getDateRange()</code> para los rangos de fecha.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ VIEW COMPONENTS (wide) ============ -->
+  <div class="card wide">
+    <div class="head" style="background:#fdf4ff;color:#a21caf">
+      <div class="path mono">resources/views/components · namespace basics13::</div>
+      <div class="why">Los componentes Blade que montan la pagina de lista de cualquier recurso. Se usan como <span class="mono">&lt;x-basics13::list.tabs …&gt;</span> y cada uno recice del transformer solo lo que necesita.</div>
+    </div>
+    <div class="cols">
+
+      <div class="wire">
+        <div class="cap">Anatomia de list.blade.php</div>
+        <div class="part"><span class="badge">1</span><b>page-header</b> &middot; migas de pan + H1 (solo para lectores de pantalla). Fuera del fragmento de resultados: no parpadea al buscar.</div>
+        <div class="part"><span class="badge">2</span><b>tabs</b> &middot; Activos 12 &middot; Archivados 3 &middot; Papelera 1 &nbsp;&nbsp;→ slot de acciones: <span class="badge">3</span><b>create-action</b> «Nuevo proyecto»</div>
+        <div class="part"><span class="badge">4</span><b>search</b> &middot; input GET + boton de limpiar</div>
+        <div class="part"><span class="badge">5</span><b>searchable-results</b> &middot; envoltorio Alpine (debounce 400 ms, morphing, anuncio del recuento)
+          <div class="row">
+            <div class="part grow"><span class="badge">6</span><b>table</b> &middot; marco + paginacion &middot; filas: nombre &middot; <span class="badge">11</span><b>count</b> &middot; <span class="badge">12</span><b>local-time</b> &middot; <span class="badge">7</span><b>row-actions</b></div>
+            <div class="part"><span class="badge">9</span><b>empty-state</b> &middot; sin registros / sin resultados</div>
+          </div>
+        </div>
+        <div class="part"><span class="badge">10</span><b>flash</b> &middot; callout de exito o de error</div>
+      </div>
+
+      <div class="mini-cols">
+        <div class="item">
+          <div class="name"><span class="badge">1</span>list/page-header</div>
+          <div class="desc">Migas de pan y H1 (oculto, solo para el esquema del documento). Se renderiza fuera del fragmento <code>#list-results</code>, asi no se reescribe en cada busqueda.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">2</span>list/tabs</div>
+          <div class="desc">Pestanas de estado (recurso · archivados · papelera) con el recuento de cada una; la actual enlaza a la URL completa. Slot <code>$actions</code> a la derecha.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">3</span>list/create-action</div>
+          <div class="desc">Boton principal que abre el drawer <code>{prefix}-form</code> y entrega el formulario vacio al handler Alpine que lo rellena.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">4</span>list/search</div>
+          <div class="desc">Caja de busqueda (GET a la ruta de la lista) con <code>maxlength</code> leido de <code>MaxLength</code> y boton de limpiar cuando hay termino.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">5</span>list/searchable-results</div>
+          <div class="desc">Envoltorio Alpine de los resultados: busca con debounce de 400 ms, sustituye la tabla por morphing y anuncia el nuevo numero de resultados a los lectores de pantalla.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">6</span>list/table</div>
+          <div class="desc">Marco de la tabla (borde, scroll horizontal) y la paginacion con la vista <code>basics13::vendor.pagination.tailwind</code>.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">7</span>list/row-actions</div>
+          <div class="desc">Pinta el array de acciones del transformer: <code>form-modal</code> abre el drawer con el payload de edicion, <code>confirm-modal</code> abre el modal de confirmacion y <code>blocked</code> muestra el boton deshabilitado con el motivo.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">8</span>list/confirm-modal</div>
+          <div class="desc">El modal que abren esas acciones: envia el formulario con el metodo spoofeado y bloquea el doble envio.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">9</span>list/empty-state</div>
+          <div class="desc">Fila de la tabla cuando no hay registros o la busqueda no devuelve nada; el slot permite anyadir contenido (por ejemplo un boton de crear).</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">10</span>list/flash</div>
+          <div class="desc">Callout verde de exito (se cierra solo a los 20 s) y callout rojo de error, de <code>session('status')</code> / <code>session('error')</code>.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">11</span>list/count</div>
+          <div class="desc">Recuento de registros relacionados de una fila (icono + numero): enlace si recibe <code>$url</code>, celda vacia si el recuento es cero.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">12</span>list/local-time</div>
+          <div class="desc">Fecha formateada segun el idioma, con formato de reserva visible sin JavaScript, dentro de un <code>&lt;time&gt;</code>.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">13</span>forms/tracked-resource</div>
+          <div class="desc">El formulario del drawer de crear/editar: CSRF, metodo spoofeado, campos ocultos de contexto e id, control de cambios (el boton solo se habilita si hay cambios) y cancelar.</div>
+        </div>
+        <div class="item">
+          <div class="name"><span class="badge">14</span>name-conflict-modal</div>
+          <div class="desc">Modal de conflicto de nombre: crear de todas formas reutilizando el nombre de un registro borrado, o restaurar el que esta en la papelera.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ LANG ============ -->
+  <div class="card">
+    <div class="head" style="background:#f1f5f9;color:#334155">
+      <div class="path mono">resources/lang/{en,es,eu,fr}</div>
+      <div class="why">Los textos genericos que reutiliza cualquier lista de cualquier recurso.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">actions.php · messages.php · pagination.php · validation.php</div>
+        <div class="desc">
+          Mensajes de resultado (creado, actualizado, movido a la papelera, restaurado, archivado, activado...),
+          etiquetas y confirmaciones de las acciones, encabezados de fecha, mensajes de vacio y de conflicto de nombre.
+          Se cargan con el namespace <code>basics13::</code> y tambien como reserva sin namespace; los cuatro idiomas
+          mantienen los mismos placeholders.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CONFIG + PROVIDER ============ -->
+  <div class="card">
+    <div class="head" style="background:#f5f5f4;color:#44403c">
+      <div class="path mono">config · src/ServiceProvider.php</div>
+      <div class="why">El punto de entrada del paquete dentro de la aplicacion.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">config/basics13.php</div>
+        <div class="desc">Los limites de longitud (<code>string</code> 191, <code>longtext</code> 10000) que leen las reglas, los inputs y los tests. Un solo sitio para cambiarlos.</div>
+      </div>
+      <div class="item">
+        <div class="name">ServiceProvider</div>
+        <div class="desc">
+          Registra las vistas y traducciones con el namespace <code>basics13::</code>, fusiona la config y publica
+          el configurador (<code>basics13-config</code>) y el conjunto de herramientas (<code>basics13-tooling</code>):
+          pint.json, phpstan.neon, phpunit.xml, phpunit.dusk.xml, boost.json, docker-compose.yml y Dockerfile.dusk.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TESTS ============ -->
+  <div class="card">
+    <div class="head" style="background:#dbeafe;color:#1d4ed8">
+      <div class="path mono">tests</div>
+      <div class="why">Las pruebas del propio paquete: unidad para la logica, feature para el arranque del paquete.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">Unit<span class="tag" style="background:#bfdbfe;color:#1e40af">sin base de datos</span></div>
+        <div class="desc">
+          <code>Concerns/TracksAuditColumnsTest</code> (quien sella cada columna de auditoria),
+          <code>Queries/ListQueryBaseTest</code> (busqueda, escape de comodines, paginacion y recuentos),
+          <code>Support/Database/*</code> (deteccion de driver y de clave duplicada),
+          <code>Support/Validation/FieldHintsTest</code> (las frases salen de las reglas),
+          <code>ServiceProviderTest</code> y <code>ToolingComposeTest</code> (las herramientas publicadas existen y el
+          compose usa los scripts del paquete),
+          <code>Translations/RecordMessageTranslationTest</code> (los mensajes existen y estan traducidos en los 4 idiomas).
+        </div>
+      </div>
+      <div class="item">
+        <div class="name">Feature</div>
+        <div class="desc">
+          <code>FeatureTestCase</code> (arranca la aplicacion sobre el paquete) y
+          <code>PackageViewsTest</code> (las vistas del paquete se cargan y se renderizan).
+        </div>
+      </div>
+      <div class="item">
+        <div class="name">Fixtures</div>
+        <div class="desc">
+          Modelos y factories de mentira para probar el paquete sin depender de la app:
+          <code>AuditedRecord</code> (con soft deletes), <code>PlainAuditedRecord</code> (sin ellos),
+          <code>AuditActor</code> (usuario autenticable) y <code>BoundedLengthRequest</code> (reglas con min y max).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TOOLING ============ -->
+  <div class="card">
+    <div class="head" style="background:#fafafa;color:#3f3f46">
+      <div class="path mono">tooling</div>
+      <div class="why">Lo que se publica a cada aplicacion para que todas trabajen igual.</div>
+    </div>
+    <div class="body">
+      <div class="item">
+        <div class="name">Docker</div>
+        <div class="desc"><code>docker-compose.yml</code> y <code>Dockerfile.dusk</code> con la aplicacion, el cron, MySQL y los scripts de prueba en Docker.</div>
+      </div>
+      <div class="item">
+        <div class="name">Calidad</div>
+        <div class="desc"><code>pint.json</code> (raiz, reglas compartidas), <code>phpstan.neon</code>, <code>phpunit.xml</code> y <code>phpunit.dusk.xml</code>.</div>
+      </div>
+      <div class="item">
+        <div class="name">Pruebas y CI</div>
+        <div class="desc"><code>mysql/init/</code> crea la base de tests y las bases para <code>--parallel</code>; <code>run-phpunit-with-coverage.sh</code> ejecuta la suite con cobertura.</div>
+      </div>
+      <div class="item">
+        <div class="name">Integracion</div>
+        <div class="desc"><code>boost.json</code> (instrucciones para el MCP de Laravel Boost) y <code>link-opencode-assets.sh</code> (reconstruye los enlaces de agentes y skills de OpenCode).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HOW THE APP PLUGS IN ============ -->
+  <div class="card wide">
+    <div class="head" style="background:#eef2ff;color:#3730a3">
+      <div class="path mono">Como engancha cada recurso de la aplicacion</div>
+      <div class="why">Clientes, proyectos y epicas repiten la misma receta: heredan la base y solo escriben lo suyo.</div>
+    </div>
+    <div class="cols">
+      <div class="wire">
+        <div class="cap">Por recurso (app/)</div>
+        <div class="part"><b>Http/Controllers</b> &middot; <span class="mono">XController extends Controller</span>, <span class="mono">XTrashController extends TrashController</span>, <span class="mono">XArchivedController extends ArchivedController</span></div>
+        <div class="part"><b>Http/Requests</b> &middot; <span class="mono">XListRequest extends SearchableListRequest</span> (solo <code>authorize()</code>), mas las de formulario, restauracion y borrado</div>
+        <div class="part"><b>Queries</b> &middot; <span class="mono">XListQuery extends ListQueryBase</span></div>
+        <div class="part"><b>Transformers</b> &middot; <span class="mono">XListTransformer extends ListTransformer</span></div>
+        <div class="part"><b>Vistas</b> &middot; <span class="mono">resources/views/{recurso}/list.blade.php</span> que usa <span class="mono">&lt;x-basics13::list.*&gt;</span> y <span class="mono">&lt;x-basics13::forms.tracked-resource&gt;</span></div>
+      </div>
+      <div class="mini-cols">
+        <div class="item">
+          <div class="name">Policies y modelos</div>
+          <div class="desc">Las abilities (<code>viewAny</code>, <code>create</code>, <code>archive</code>, <code>restore</code>, <code>forceDelete</code>...) y el trait <code>TracksAuditColumns</code> son de la app; el paquete solo las invoca.</div>
+        </div>
+        <div class="item">
+          <div class="name">Migraciones</div>
+          <div class="desc">Llaman a <code>addCommonColumns()</code>, <code>addAuditColumns()</code> y <code>addUniqueActiveNameIndex()</code> para no repetir columnas ni indices a mano.</div>
+        </div>
+        <div class="item">
+          <div class="name">Factories</div>
+          <div class="desc">Usan el trait <code>HasStates</code> para generar registros activos, archivados o en papelera con una sola llamada.</div>
+        </div>
+        <div class="item">
+          <div class="name">Formularios</div>
+          <div class="desc">El icono de informacion junto a cada etiqueta lo alimenta <code>FieldHints</code> leyendo las reglas del FormRequest: ninguna frase se escribe dos veces.</div>
+        </div>
+        <div class="item">
+          <div class="name">Carreras de nombre</div>
+          <div class="desc">Dos usuarios creando el mismo nombre a la vez: el indice unico de la base de datos es la ultima verdad y <code>UniqueConstraintViolation</code> lo traduce a un error de validacion.</div>
+        </div>
+        <div class="item">
+          <div class="name">Lo que NO hay aqui</div>
+          <div class="desc">Sin repositorios, DTO, services ni capas de dominio: request → controller → query → transformer → vista, y listo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <b>En una frase:</b> basics13 es el esqueleto de un recurso tipo lista con papelera y archivado — peticion valida y autorizada,
+  consulta compartida, transformer que prepara la pagina, componentes Blade que la pintan, auditoria y nombre unico
+  garantizados por la base de datos, y un conjunto de herramientas identico para todas las aplicaciones.
+</footer>
+
+</body>
+</html>
