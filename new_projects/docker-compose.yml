@@ -1,0 +1,18 @@
+services:
+  laravel13-berria:
+    image: webdevops/php-apache-dev:${DC_PHP:-8.4}
+    user: "${DC_UID:-1000}:${DC_GID:-1000}"
+    volumes:
+      - ./:/docker
+      - ./vendor:/vendor
+    working_dir: /docker
+    environment:
+      - PATH=$PATH:/home/application/.composer/vendor/bin:/home/application/.config/composer/vendor/bin
+      - TMPDIR=/tmp
+      - TEMP=/tmp
+      - TMP=/tmp
+    networks:
+      - frontend
+
+networks:
+  frontend: null
