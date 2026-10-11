@@ -6,7 +6,11 @@
 composer global require laravel/installer
 ```
 ```
+mkdir -p projects
+ln -s ../packages projects/packages
+cd projects
 laravel new demo13
+cd demo13
 ```
 - Livewire
 - Laravel's built-in authentication
@@ -24,7 +28,7 @@ laravel new demo13
 >> `docker-compose.yml` basics13-tik hartu eta martxan jarri
 
 ```
-cp ../packages/basics13/tooling/docker-compose.yml .
+cp ../../packages/basics13/tooling/docker-compose.yml .
 ```
 
 - basics13-n bizi da; hura behar da edukiontziak martxan jartzeko. Gero `vendor:publish --tag=basics13-tooling` berdinak usten du
@@ -61,7 +65,7 @@ git commit -am "application running"
 >> basics13 paketea + tooling config
 
 ```
-composer config repositories.basics13 '{"type": "path", "url": "../packages/basics13", "options": {"symlink": true}}'
+composer config repositories.basics13 '{"type": "path", "url": "../../packages/basics13", "options": {"symlink": true}}'
 composer require amaia/basics13
 ```
 ```
