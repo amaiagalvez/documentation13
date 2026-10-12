@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="ESTRUKTURA" id="Fe7IR1EburLVgrxOUy05">
-        <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1303" dy="1893" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -279,7 +279,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="gQJb8dayQAEAvtUHmIeR" name="TESTING">
-        <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1303" dy="1893" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="QGWLIdQRtjoqiS-ennaG-0"/>
                 <mxCell id="QGWLIdQRtjoqiS-ennaG-1" parent="QGWLIdQRtjoqiS-ennaG-0"/>
@@ -380,7 +380,7 @@
         </mxGraphModel>
     </diagram>
     <diagram name="AGENTEAK" id="qvf4JEgAKSUAV755M4YM">
-        <mxGraphModel dx="1908" dy="1604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="2893" dy="2343" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="mAJiBhmsFqUoIj1_78gD-0"/>
                 <mxCell id="mAJiBhmsFqUoIj1_78gD-1" parent="mAJiBhmsFqUoIj1_78gD-0"/>
@@ -583,7 +583,7 @@
         </mxGraphModel>
     </diagram>
     <diagram name="DOCKER" id="spMKGgCm9u2XQefrgZQb">
-        <mxGraphModel dx="1383" dy="658" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1284" dy="781" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="QORiMYNdoeFo_8g7Haam-0"/>
                 <mxCell id="QORiMYNdoeFo_8g7Haam-1" parent="QORiMYNdoeFo_8g7Haam-0"/>
@@ -680,7 +680,7 @@
                     <mxGeometry height="40" width="37.6" x="927.6" y="453.78" as="geometry"/>
                 </mxCell>
                 <mxCell id="SFaKTquiF-S_bTu0xLku-0" connectable="0" parent="QORiMYNdoeFo_8g7Haam-1" style="group;fillColor=#e1d5e7;strokeColor=#9673a6;perimeterSpacing=9;rounded=1;roundedPerimeter=1;strokeWidth=2;spacing=5;spacingLeft=2;spacingBottom=2;spacingTop=2;spacingRight=2;labelBackgroundColor=none;align=left;glass=0;shadow=1;fontFamily=Montserrat Alternates;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DMontserrat%2BAlternates;" value="" vertex="1">
-                    <mxGeometry height="120" width="180" x="50" y="490" as="geometry"/>
+                    <mxGeometry height="120" width="180" x="60" y="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="SFaKTquiF-S_bTu0xLku-1" parent="SFaKTquiF-S_bTu0xLku-0" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;font face=&quot;Montserrat Alternates&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Montserrat+Alternates&quot;&gt;docker-compose.yml&lt;/font&gt;&lt;/h1&gt;&lt;p&gt;&lt;font face=&quot;Montserrat Alternates&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Montserrat+Alternates&quot;&gt;profiles&lt;/font&gt;&lt;/p&gt;" vertex="1">
                     <mxGeometry height="120" width="180" as="geometry"/>
@@ -688,11 +688,20 @@
                 <mxCell id="SFaKTquiF-S_bTu0xLku-2" parent="SFaKTquiF-S_bTu0xLku-0" style="image;aspect=fixed;html=1;align=center;fontSize=12;image=img/lib/azure2/general/Media_File.svg;points=[[0.5,0.003,0],[0.5,0.998,0],[0,0.5,0],[1,0.5,0],[0.984,0.32,0],[0.993,0.985,0],[0.007,0.985,0],[0.007,0.015,0]];labelBackgroundColor=#d5e8d4;labelBorderColor=#82b366;" value="" vertex="1">
                     <mxGeometry height="30" width="24.38" x="135" y="80" as="geometry"/>
                 </mxCell>
+                <mxCell id="Be-QDVatN-nUOFqsEXcT-0" connectable="0" parent="QORiMYNdoeFo_8g7Haam-1" style="group;fillColor=#e1d5e7;strokeColor=#9673a6;perimeterSpacing=9;rounded=1;roundedPerimeter=1;strokeWidth=2;spacing=5;spacingLeft=2;spacingBottom=2;spacingTop=2;spacingRight=2;labelBackgroundColor=none;align=left;glass=0;shadow=1;fontFamily=Montserrat Alternates;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DMontserrat%2BAlternates;" value="" vertex="1">
+                    <mxGeometry height="120" width="480" x="30" y="610" as="geometry"/>
+                </mxCell>
+                <mxCell id="Be-QDVatN-nUOFqsEXcT-1" parent="Be-QDVatN-nUOFqsEXcT-0" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;font face=&quot;Montserrat Alternates&quot;&gt;testing13/projectRunAll.sh demo13&lt;/font&gt;&lt;/h1&gt;&lt;div&gt;&lt;font face=&quot;Montserrat Alternates&quot;&gt;&lt;/font&gt;&lt;/div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); font-family: &amp;quot;Montserrat Alternates&amp;quot;;&quot;&gt;dena batera ejekutateko&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="120" width="479.9999999999999" as="geometry"/>
+                </mxCell>
+                <mxCell id="Be-QDVatN-nUOFqsEXcT-2" parent="Be-QDVatN-nUOFqsEXcT-0" style="image;aspect=fixed;html=1;align=center;fontSize=12;image=img/lib/azure2/general/Media_File.svg;points=[[0.5,0.003,0],[0.5,0.998,0],[0,0.5,0],[1,0.5,0],[0.984,0.32,0],[0.993,0.985,0],[0.007,0.985,0],[0.007,0.015,0]];labelBackgroundColor=#d5e8d4;labelBorderColor=#82b366;" value="" vertex="1">
+                    <mxGeometry height="30" width="24.38" x="360" y="80" as="geometry"/>
+                </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
     <diagram name="DATU BASEA" id="_zmLMOeUUvPrFc_FmwYu">
-        <mxGraphModel dx="2804" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="2255" dy="855" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="rPtZ0TYt1Pr_qsuhwTrF-0"/>
                 <mxCell id="rPtZ0TYt1Pr_qsuhwTrF-1" parent="rPtZ0TYt1Pr_qsuhwTrF-0"/>
