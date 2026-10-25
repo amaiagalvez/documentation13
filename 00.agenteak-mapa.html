@@ -1,0 +1,550 @@
+la estru
+<!doctype html>
+<html lang="eu">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>agenteak mapa</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat+Alternates:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbfaf7;
+      --ink: #1d1d1d;
+      --muted: #444;
+      --card: #fff
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #1b1b1f;
+        --ink: #f1f1f1;
+        --muted: #c9c9c9;
+        --card: #26262b
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #1b1b1f;
+      --ink: #f1f1f1;
+      --muted: #c9c9c9;
+      --card: #26262b
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Montserrat Alternates", sans-serif;
+      font-size: 12px;
+      line-height: 1.45
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px;
+      display: grid;
+      grid-template-columns: 1fr
+    }
+
+    .title {
+      text-align: center;
+      margin: 0 0 40px
+    }
+
+    .title h1 {
+      font-family: "Dancing Script", cursive;
+      font-size: 56px;
+      line-height: 1;
+      margin: 0;
+      display: inline-block;
+      position: relative;
+      padding: 0 18px;
+      isolation: isolate
+    }
+
+    .title h1::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      height: 12px;
+      background: #ffd25e;
+      opacity: .55;
+      border-radius: 50% 40% 60% 45%;
+      z-index: -1
+    }
+
+    .title p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .08em
+    }
+
+    .groups {
+      display: flex;
+      flex-direction: column;
+      gap: 42px
+    }
+
+    .group {
+      display: grid;
+      grid-template-columns: 230px 30px 1fr;
+      gap: 0 10px;
+      align-items: center
+    }
+
+    .head {
+      text-align: center
+    }
+
+    .num {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50% 50% 45% 55%/60% 60% 40% 40%;
+      font-family: "Dancing Script";
+      font-size: 22px;
+      font-weight: 700;
+      color: #1d1d1d
+    }
+
+    .head h2 {
+      font-family: "Dancing Script", cursive;
+      font-size: 30px;
+      margin: 4px 0 6px;
+      font-weight: 700
+    }
+
+    .head p {
+      margin: 0;
+      color: var(--muted)
+    }
+
+    .fork {
+      visibility: hidden
+    }
+
+    .items {
+      display: flex;
+      flex-direction: column;
+      gap: 18px
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      gap: 8px;
+      position: relative
+    }
+
+    .item::before {
+      content: "";
+      position: absolute;
+      left: -40px;
+      top: 14px;
+      width: 36px;
+      border-top: 2.5px solid var(--ink)
+    }
+
+    .item::after {
+      content: "";
+      position: absolute;
+      left: -10px;
+      top: 9px;
+      border: 5px solid transparent;
+      border-left: 7px solid var(--ink)
+    }
+
+    .item>div::before {
+      content: "";
+      position: absolute;
+      left: -41px;
+      top: -10px;
+      bottom: -10px;
+      border-left: 2.5px solid var(--ink)
+    }
+
+    .item:first-child>div::before {
+      top: 14px
+    }
+
+    .item:last-child>div::before {
+      bottom: auto;
+      height: 26px
+    }
+
+    .item:first-child:last-child>div::before {
+      display: none
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 6px;
+      font-family: "Dancing Script", cursive;
+      font-size: 19px;
+      font-weight: 700;
+      color: #1d1d1d;
+      margin-bottom: 5px
+    }
+
+    .item p {
+      margin: 0;
+      color: var(--muted)
+    }
+
+    .item code {
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      background: rgba(127, 127, 127, .15);
+      padding: 0 3px;
+      border-radius: 3px
+    }
+
+    .red {
+      background: #ff6b5e
+    }
+
+    .green {
+      background: #c8e06b
+    }
+
+    .pink {
+      background: #e889d8
+    }
+
+    .blue {
+      background: #8ed1ee
+    }
+
+    .rose {
+      background: #f8a9d6
+    }
+
+    .yellow {
+      background: #ffd25e
+    }
+
+    .orange {
+      background: #ff9a2e
+    }
+
+    .violet {
+      background: #c9b5f2
+    }
+
+    .teal {
+      background: #3fb2a8
+    }
+
+    .tree {
+      margin: 6px 0 0;
+      padding: 0;
+      list-style: none
+    }
+
+    .tree li {
+      position: relative;
+      padding: 3px 0 3px 18px;
+      border-left: 2px solid var(--ink);
+      margin-left: 6px
+    }
+
+    .tree li:last-child {
+      border-left-color: transparent
+    }
+
+    .tree li::before {
+      content: "";
+      position: absolute;
+      left: -2px;
+      top: 0;
+      width: 14px;
+      height: 12px;
+      border-left: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      border-bottom-left-radius: 6px
+    }
+
+    .tree .tree {
+      margin-top: 4px
+    }
+
+    .tree b {
+      font-weight: 500
+    }
+
+    .sk {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 6px 18px;
+      margin-top: 6px
+    }
+
+    .sk h4 {
+      grid-column: 1/-1;
+      margin: 8px 0 0;
+      font-family: "Dancing Script", cursive;
+      font-size: 17px
+    }
+
+    .sk div {
+      color: var(--muted)
+    }
+
+    @media (max-width:820px) {
+      .title h1 {
+        font-size: 40px
+      }
+
+      .group {
+        grid-template-columns: 1fr
+      }
+
+      .fork {
+        display: none
+      }
+
+      .head {
+        margin-bottom: 14px
+      }
+
+      .item::before,
+      .item::after,
+      .item>div::before {
+        display: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="title">
+      <h1>AI konfigurazioa</h1>
+      <p>l13/ · laravel13_eskema › AGENTEAK</p>
+    </header>
+
+    <div class="groups">
+      <!-- 1 -->
+      <section class="group">
+        <div class="head"><span class="num red">1</span>
+          <h2>.github</h2>
+          <p>Iturri bakarra. Arauak, skill-ak eta agenteak hemen bakarrik editatzen dira; bezeroek esteka besterik ez
+            dute egiten.</p>
+        </div>
+        <div class="fork"></div>
+        <div class="items">
+          <div class="item">
+            <div><span class="pill blue">agents</span>
+              <p>14 agente, irakurtzeko soilik (ez dute koderik aldatzen).</p>
+              <ul class="tree">
+                <li><b>review-orchestrator</b> — auditoria osoa zuzentzen du eta
+                  <code>reviews/AAAA-HH-EE/CODE-REVIEW.md</code> gordetzen du
+                  <ul class="tree">
+                    <li><b>laravel-reviewer</b> — Laravel 13 eta PHP modernoa</li>
+                    <li><b>architecture-reviewer</b> — arkitektura eta pakete-mugak</li>
+                    <li><b>business-reviewer</b> — negozio-arauak eta domeinuaren zuzentasuna</li>
+                    <li><b>database-reviewer</b> — MySQL/PostgreSQL, Eloquent, transakzioak, konkurrentzia</li>
+                    <li><b>security-reviewer</b> — segurtasuna (OWASP)</li>
+                    <li><b>api-reviewer</b> — API diseinua eta segurtasuna</li>
+                    <li><b>performance-reviewer</b> — errendimendua (N+1, cachea…)</li>
+                    <li><b>frontend-reviewer</b> — Blade, Livewire</li>
+                    <li><b>testing-reviewer</b> — PHPUnit testak eta estaldura</li>
+                    <li><b>maintainability-reviewer</b> — Clean Code, SOLID, mantengarritasuna</li>
+                    <li><b>devops-reviewer</b> — Docker, produkzioa, behagarritasuna, mendekotasunak</li>
+                    <li><b>devil-advocate</b> — azken berrikuspen independentea (Principal Engineer)</li>
+                  </ul>
+                </li>
+                <li><b>ux-designer</b> — bakarka: Tailwind eta UX berrikuspena Blade/Livewire/Flux bistetan</li>
+              </ul>
+            </div>
+          </div>
+          <div class="item">
+            <div><span class="pill rose">instructions</span>
+              <p>Gune-arauak <code>applyTo</code>/<code>paths</code> bidez: <code>http</code>, <code>models</code>,
+                <code>packages</code>, <code>tests</code>, <code>views</code>. Bide bat editatu aurretik irakurri.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div><span class="pill yellow">skills</span>
+              <p>Skill bakoitza zeregin baterako argibide-sorta da; agenteak behar duenean kargatzen du.</p>
+              <div class="sk">
+                <h4>Lan-fluxuak</h4>
+                <div><code>new-resource</code> — CRUD baliabide osoa sortu, Entity eredu kanonikoaren arabera</div>
+                <div><code>new-feature</code> — funtzionalitate bat hasieratik bukaerara: testak, Pint eta build</div>
+                <div><code>fix-tests</code> — huts egiten duten testak berdetu aldaketa txikienarekin</div>
+                <div><code>full-review</code> — auditoria osoa (orchestrator-a) eta CODE-REVIEW.md data duena</div>
+                <div><code>fix-review</code> — CODE-REVIEW.md-tik aukeratutako aurkikuntzak segurtasunez aplikatu</div>
+                <div><code>consistency-review</code> — formularioak eta zerrendak kanonikoekin alderatu</div>
+                <div><code>ux-implement</code> — UX hobekuntza sorta bat aplikatu ux-design jarraituz</div>
+                <div><code>docker-commands</code> — Docker komandoak, DX aliasa, testak eta build-ak exekutatzea</div>
+                <h4>OpenSpec (SDD)</h4>
+                <div><code>openspec-explore</code> — ideiak eta eskakizunak argitu aldaketa hasi aurretik</div>
+                <div><code>openspec-propose</code> — aldaketa berria: proposal, design, specs eta tasks batera</div>
+                <div><code>openspec-update-change</code> — aldaketa baten planifikazioa berrikusi eta koherente mantendu
+                </div>
+                <div><code>openspec-apply-change</code> — aldaketa baten zereginak inplementatu</div>
+                <div><code>openspec-sync-specs</code> — delta spec-ak spec nagusietara sinkronizatu</div>
+                <div><code>openspec-archive-change</code> — amaitutako aldaketa artxibatu</div>
+                <h4>Gune-arauak (zone-rules)</h4>
+                <div><code>zone-rules-http</code> — kontroladoreak, request-ak, policy-ak, query-ak, transformer-ak
+                </div>
+                <div><code>zone-rules-models</code> — fillable, cast-ak, erlazioak, soft delete, izen bakarrak</div>
+                <div><code>zone-rules-tests</code> — Unit vs Feature vs Dusk, lasterketak, Dusk lokalea</div>
+                <div><code>zone-rules-views</code> — formulario/zerrenda kanonikoak, Flux, euskarazko testuak,
+                  irisgarritasuna</div>
+                <h4>Ezagutza teknikoa</h4>
+                <div><code>laravel-best-practices</code> — Laravel kodea idazteko eta berrikusteko arauak</div>
+                <div><code>php-conventions</code> — PHP estiloa, motak, PHPDoc, factory-ak, Pint</div>
+                <div><code>livewire-development</code> — Livewire 4: wire: direktibak, osagaiak, balidazioa</div>
+                <div><code>fluxui-development</code> — Flux UI (doakoa): osagaiak, formularioak, modalak, ikonoak</div>
+                <div><code>tailwindcss-development</code> — Tailwind 4 klaseak, diseinu arduratsua, dark mode</div>
+                <div><code>fortify-development</code> — autentifikazioa: login, erregistroa, 2FA, pasahitzak</div>
+                <div><code>ux-design</code> — bistak sortu/aldatu aurretik: zerrendak, formularioak, drawer-ak</div>
+                <div><code>test-rules</code> — testen kokapena, PHPUnit konbentzioak, DB trait-ak</div>
+                <div><code>testing-best-practices</code> — testen diseinua: estaldura, izendapena, isolamendua</div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div><span class="pill orange">docs · tasks · reviews</span>
+              <p><code>how.md</code>, <code>ARCHITECTURE.md</code>, <code>review-rules.md</code>,
+                <code>spec_sdd.md</code>; <code>todo.md</code> lan pendienteak; <code>reviews/AAAA-HH-EE/</code>
+                berrikuspen txostenak.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div><span class="pill violet">copilot · dependabot</span>
+              <p><code>copilot-instructions.md</code>, <code>COPILOT-REVIEW-README.md</code>,
+                <code>dependabot.yml</code> (mendekotasun zaharkitu/zaurgarriak) eta <code>workflows/</code>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 2 -->
+      <section class="group">
+        <div class="head"><span class="num green">2</span>
+          <h2>Bezeroak</h2>
+          <p>Tresna bakoitzaren karpeta: <code>.github</code>-era estekak, script batek sortuak.</p>
+        </div>
+        <div class="fork"></div>
+        <div class="items">
+          <div class="item">
+            <div><span class="pill blue">.claude · CLAUDE.md</span>
+              <p>Claude Code: <code>agents/</code>, <code>rules/</code>, <code>skills/</code> estekak eta
+                <code>settings.json</code>. <code>CLAUDE.md</code>-k <code>@AGENTS.md</code> inportatzen du. Sortzailea:
+                <code>testing13/agents/link-claude-assets.sh</code>.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div><span class="pill teal">.opencode · opencode.jsonc</span>
+              <p>OpenCode: <code>agents/</code> eta <code>skills/</code> estekak; gune-arauak <code>zone-rules-*</code>
+                skill-en bidez. Sortzailea: <code>link-opencode-assets.sh</code>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 3 -->
+      <section class="group">
+        <div class="head"><span class="num pink">3</span>
+          <h2>Proiektua</h2>
+          <p>Bezero guztiek partekatzen dituzten jarraibideak eta zehaztapenak.</p>
+        </div>
+        <div class="fork"></div>
+        <div class="items">
+          <div class="item">
+            <div><span class="pill green">AGENTS.md</span>
+              <p>Proiektuaren gidalerroak: stack-a, pakete-mugak, Docker komandoak, proiektu-mapa eta zein spec
+                irakurri.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div><span class="pill pink">openspec</span>
+              <p>Spec-Driven Development; ikus 4. puntua.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 4 -->
+      <section class="group">
+        <div class="head"><span class="num violet">4</span>
+          <h2>OpenSpec</h2>
+          <p>Spec-Driven Development: kodeak, testek eta skill-ek adierazten ez dituzten aldaezinak. Gida osoa:
+            <code>.github/docs/spec_sdd.md</code>.</p>
+        </div>
+        <div class="fork"></div>
+        <div class="items">
+          <div class="item">
+            <div><span class="pill blue">egitura</span>
+              <ul class="tree">
+                <li><b>openspec/config.yaml</b> — proiektuaren testuingurua eta arauak (skill-ek irakurtzen dute)</li>
+                <li><b>openspec/specs/&lt;capability&gt;/spec.md</b> — egungo egia; <b>ez editatu eskuz</b>
+                  <ul class="tree">
+                    <li><code>basics-*</code> — auth, crud-base, trash-archived, roles, settings, email, navigation…
+                    </li>
+                    <li><code>*-domain</code> — entities, projects, locations</li>
+                    <li><code>entity-projects-bridge</code>, <code>package-boundaries</code>,
+                      <code>epics-comments</code>, <code>planning-timeline</code>, <code>calendars</code>,
+                      <code>excel-export</code>, <code>files13</code></li>
+                  </ul>
+                </li>
+                <li><b>openspec/changes/&lt;id&gt;/</b> — aldaketa bat = PR bat
+                  <ul class="tree">
+                    <li><code>proposal.md</code> — zergatik eta zer aldatzen den</li>
+                    <li><code>design.md</code> — erabaki teknikoak (behar denean)</li>
+                    <li><code>tasks.md</code> — zereginen zerrenda <code>- [ ]</code> / <code>- [x]</code></li>
+                    <li><code>specs/&lt;capability&gt;/spec.md</code> — deltak: ADDED · MODIFIED · REMOVED · RENAMED
+                    </li>
+                  </ul>
+                </li>
+                <li><b>openspec/changes/archive/</b> — amaitutako aldaketak, datarekin</li>
+              </ul>
+            </div>
+          </div>
+          <div class="item">
+            <div><span class="pill yellow">nola erabili (fluxua)</span>
+              <ul class="tree">
+                <li><b>1. Esploratu</b> — <code>openspec list</code>, <code>list --specs</code>,
+                  <code>show &lt;capability&gt; --type spec</code> · skill <code>openspec-explore</code></li>
+                <li><b>2. Erabaki</b> — proposal behar da? Spec-a berrezartzen duen bug-a, typo-a edo config-a →
+                  zuzenean konpondu</li>
+                <li><b>3. Sortu</b> — <code>openspec-propose</code>: proposal + design + specs + tasks</li>
+                <li><b>4. Balidatu</b> — <code>openspec validate &lt;id&gt; --strict</code> berde egon arte</li>
+                <li><b>5. Onarpena</b> — hemen gelditu; ez inplementatu onartu arte (aldaketak:
+                  <code>openspec-update-change</code>)</li>
+                <li><b>6. Inplementatu</b> — <code>openspec-apply-change</code>: <code>tasks.md</code> ordenan,
+                  <code>- [x]</code> markatuz</li>
+                <li><b>7. Artxibatu</b> — merge ondoren <code>openspec-archive-change</code>
+                  (<code>archive &lt;id&gt; --yes</code>): deltak <code>specs/</code>-era. Artxibatu gabe
+                  sinkronizatzeko: <code>openspec-sync-specs</code></li>
+              </ul>
+            </div>
+          </div>
+          <div class="item">
+            <div><span class="pill orange">komandoak</span>
+              <p><code>list</code> · <code>list --specs</code> · <code>show</code> ·
+                <code>validate --all --strict</code> · <code>archive</code> · <code>view</code> (dashboard) ·
+                <code>update</code> (skill-ak birsortu CLI-a eguneratu ondoren). CLI ofiziala:
+                <code>@fission-ai/openspec@1.14.1</code>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+
+</html>
