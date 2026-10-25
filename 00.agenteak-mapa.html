@@ -375,7 +375,8 @@ la estru
           <div class="item">
             <div><span class="pill rose">instructions</span>
               <p>Gune-arauak <code>applyTo</code>/<code>paths</code> bidez: <code>http</code>, <code>models</code>,
-                <code>packages</code>, <code>tests</code>, <code>views</code>. Bide bat editatu aurretik irakurri.</p>
+                <code>packages</code>, <code>tests</code>, <code>views</code>. Bide bat editatu aurretik irakurri.
+              </p>
             </div>
           </div>
           <div class="item">
@@ -423,13 +424,15 @@ la estru
             <div><span class="pill orange">docs · tasks · reviews</span>
               <p><code>how.md</code>, <code>ARCHITECTURE.md</code>, <code>review-rules.md</code>,
                 <code>spec_sdd.md</code>; <code>todo.md</code> lan pendienteak; <code>reviews/AAAA-HH-EE/</code>
-                berrikuspen txostenak.</p>
+                berrikuspen txostenak.
+              </p>
             </div>
           </div>
           <div class="item">
             <div><span class="pill violet">copilot · dependabot</span>
               <p><code>copilot-instructions.md</code>, <code>COPILOT-REVIEW-README.md</code>,
-                <code>dependabot.yml</code> (mendekotasun zaharkitu/zaurgarriak) eta <code>workflows/</code>.</p>
+                <code>dependabot.yml</code> (mendekotasun zaharkitu/zaurgarriak) eta <code>workflows/</code>.
+              </p>
             </div>
           </div>
         </div>
@@ -446,7 +449,8 @@ la estru
             <div><span class="pill blue">.claude · CLAUDE.md</span>
               <p>Claude Code: <code>agents/</code>, <code>rules/</code>, <code>skills/</code> estekak eta
                 <code>settings.json</code>. <code>CLAUDE.md</code>-k <code>@AGENTS.md</code> inportatzen du. Sortzailea:
-                <code>testing13/agents/link-claude-assets.sh</code>.</p>
+                <code>testing13/agents/link-claude-assets.sh</code>.
+              </p>
             </div>
           </div>
           <div class="item">
@@ -483,10 +487,21 @@ la estru
         <div class="head"><span class="num violet">4</span>
           <h2>OpenSpec</h2>
           <p>Spec-Driven Development: kodeak, testek eta skill-ek adierazten ez dituzten aldaezinak. Gida osoa:
-            <code>.github/docs/spec_sdd.md</code>.</p>
+            <code>.github/docs/spec_sdd.md</code>.
+          </p>
         </div>
         <div class="fork"></div>
         <div class="items">
+          <div class="item">
+            <div><span class="pill blue">instalazioa</span>
+              <ul class="tree">
+                <li><b>npm i -g @fission-ai/openspec@1.14.1</b></li>
+                <li><b>openspec config set delivery skills</b></li>
+
+                <li><b>rm -rf .claude/agents .claude/skills .opencode/agents .opencode/skills</b></li>
+              </ul>
+            </div>
+          </div>
           <div class="item">
             <div><span class="pill blue">egitura</span>
               <ul class="tree">
@@ -498,7 +513,8 @@ la estru
                     <li><code>*-domain</code> — entities, projects, locations</li>
                     <li><code>entity-projects-bridge</code>, <code>package-boundaries</code>,
                       <code>epics-comments</code>, <code>planning-timeline</code>, <code>calendars</code>,
-                      <code>excel-export</code>, <code>files13</code></li>
+                      <code>excel-export</code>, <code>files13</code>
+                    </li>
                   </ul>
                 </li>
                 <li><b>openspec/changes/&lt;id&gt;/</b> — aldaketa bat = PR bat
@@ -518,15 +534,18 @@ la estru
             <div><span class="pill yellow">nola erabili (fluxua)</span>
               <ul class="tree">
                 <li><b>1. Esploratu</b> — <code>openspec list</code>, <code>list --specs</code>,
-                  <code>show &lt;capability&gt; --type spec</code> · skill <code>openspec-explore</code></li>
+                  <code>show &lt;capability&gt; --type spec</code> · skill <code>openspec-explore</code>
+                </li>
                 <li><b>2. Erabaki</b> — proposal behar da? Spec-a berrezartzen duen bug-a, typo-a edo config-a →
                   zuzenean konpondu</li>
                 <li><b>3. Sortu</b> — <code>openspec-propose</code>: proposal + design + specs + tasks</li>
                 <li><b>4. Balidatu</b> — <code>openspec validate &lt;id&gt; --strict</code> berde egon arte</li>
                 <li><b>5. Onarpena</b> — hemen gelditu; ez inplementatu onartu arte (aldaketak:
-                  <code>openspec-update-change</code>)</li>
+                  <code>openspec-update-change</code>)
+                </li>
                 <li><b>6. Inplementatu</b> — <code>openspec-apply-change</code>: <code>tasks.md</code> ordenan,
-                  <code>- [x]</code> markatuz</li>
+                  <code>- [x]</code> markatuz
+                </li>
                 <li><b>7. Artxibatu</b> — merge ondoren <code>openspec-archive-change</code>
                   (<code>archive &lt;id&gt; --yes</code>): deltak <code>specs/</code>-era. Artxibatu gabe
                   sinkronizatzeko: <code>openspec-sync-specs</code></li>
@@ -538,7 +557,8 @@ la estru
               <p><code>list</code> · <code>list --specs</code> · <code>show</code> ·
                 <code>validate --all --strict</code> · <code>archive</code> · <code>view</code> (dashboard) ·
                 <code>update</code> (skill-ak birsortu CLI-a eguneratu ondoren). CLI ofiziala:
-                <code>@fission-ai/openspec@1.14.1</code>.</p>
+                <code>@fission-ai/openspec@1.14.1</code>.
+              </p>
             </div>
           </div>
         </div>
